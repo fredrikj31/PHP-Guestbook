@@ -1,4 +1,5 @@
 <?php
+    //Including the database connecting
     include_once 'settings.php';
 ?>
 <DOCTYPE html>
@@ -16,20 +17,25 @@
     <br>
 
     <?php
-        // Check connection
+        // Checking connection
         if ($conn == FALSE) {
+            //If the connection fails then it sends out an error code.
             echo "Connection Failed: " . mysqli_connect_error();
             exit();
         }
 
+        //If the connection not failed, then we are making a sql string 
         $sql = "SELECT * FROM comments";
 
+        //Then we are sending the sql string to the database
         $result = mysqli_query($conn, $sql);
 
+        //After we sent it, we will count the rows there matches with the sql string
         $count = mysqli_num_rows($result);
 
+        //Checking if there is more then 0 rows
         if ($count > 0) {
-            // output data of each row
+            //Outputting the rows one by one
             while($row = mysqli_fetch_array($result)) {
                 echo '<div class="comments">';
 
@@ -48,17 +54,19 @@
             }
             echo "</table>";
         } else {
+            //If there is no rows, we will print out that there is no rows.
             echo '<center>' . "0 results, No comments has been created." . '</center>';
             echo '<br>';
             echo '<br>';
         }
+        //Then we close the connection
         mysqli_close($conn);
     ?>
     <center><form action="add.php" method="POST">
         Name:<br>
         <input type="text" name="name"><br><br>
         Comment:<br>
-        <textarea style="overflow:auto;resize:none" name="comment" rows="7" cols="50" maxlength="1000" required></textarea><br><br>
+        <textarea style="overflow:auto;resize:none" name="comment" rows="7" cols="50" maxlength="1000"></textarea><br><br>
         <input type="submit" value="Send Comment">
     </form></center>
 </body>

@@ -4,9 +4,15 @@
     margin-right: 200px;
     padding: 5px;
 }
+
 .msg {
     float: right;
 }
+
 .login {
     float: right;
+}
+
+.error {
+    color: red;
 }
